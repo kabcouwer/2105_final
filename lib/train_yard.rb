@@ -46,4 +46,14 @@ class TrainYard
     end
     inventory_hash
   end
+
+  def overflow_cars
+    overflow = []
+    total_inventory.find_all do |car, quantity|
+      if trains_containing(car).length > 1 && quantity > 10
+        overflow << car
+      end
+    end
+    overflow
+  end
 end

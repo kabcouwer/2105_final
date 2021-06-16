@@ -124,5 +124,19 @@ RSpec.describe TrainYard do
         })
     end
 
+    it 'can identify overflow_cars where a car is overflowing if it is carried by more than one train and there are more than ten cars' do
+      @train1.add_cars(@car1, 5)
+      @train2.add_cars(@car1, 3)
+      @train2.add_cars(@car4, 4)
+      @train3.add_cars(@car1, 4)
+      @train4.add_cars(@car4, 5)
+      @train4.add_cars(@car3, 10)
+      @train_yard.add_train(@train1)
+      @train_yard.add_train(@train2)
+      @train_yard.add_train(@train3)
+      @train_yard.add_train(@train4)
+
+      expect(@train_yard.overflow_cars).to eq([@car1])
+    end
   end
 end
