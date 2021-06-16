@@ -37,5 +37,14 @@ RSpec.describe Train do
       @train1.add_cars(@car2, 10)
       expect(@train1.cargo).to eq({@car1 => 5, @car2 => 10})
     end
+
+    it 'can calculate weight (sum of all thier cars weight)' do
+      @train1.add_cars(@car1, 2)
+      @train1.add_cars(@car1, 3)
+      @train1.add_cars(@car2, 10)
+
+      expect(@train1.weight).to eq(35)
+    end
+
   end
 end
