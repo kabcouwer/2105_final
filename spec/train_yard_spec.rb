@@ -14,13 +14,6 @@ RSpec.describe TrainYard do
     @train2 = Train.new({name: 'Emily', type: 'Tender'})
     @train3 = Train.new({name: 'Nia', type: 'Tank'})
     @train4 = Train.new({name: 'Gordon', type: 'Express'})
-    @train1.add_cars(@car1, 5)
-    @train1.add_cars(@car2, 2)
-    @train2.add_cars(@car1, 3)
-    @train2.add_cars(@car4, 4)
-    @train3.add_cars(@car1, 1)
-    @train4.add_cars(@car4, 5)
-    @train4.add_cars(@car3, 10)
   end
 
   describe 'instantiation' do
@@ -36,6 +29,13 @@ RSpec.describe TrainYard do
 
   describe 'methods' do
     it 'can add trains to train yard' do
+      @train1.add_cars(@car1, 5)
+      @train1.add_cars(@car2, 2)
+      @train2.add_cars(@car1, 3)
+      @train2.add_cars(@car4, 4)
+      @train3.add_cars(@car1, 1)
+      @train4.add_cars(@car4, 5)
+      @train4.add_cars(@car3, 10)
       @train_yard.add_train(@train1)
 
       expect(@train_yard.trains).to eq([@train1])
@@ -48,10 +48,24 @@ RSpec.describe TrainYard do
     end
 
     it 'can find the weight of train1' do
+      @train1.add_cars(@car1, 5)
+      @train1.add_cars(@car2, 2)
+      @train2.add_cars(@car1, 3)
+      @train2.add_cars(@car4, 4)
+      @train3.add_cars(@car1, 1)
+      @train4.add_cars(@car4, 5)
+      @train4.add_cars(@car3, 10)
       expect(@train1.weight).to eq(27)
     end
 
     it 'can return an array of unique train types in alphabetical order' do
+      @train1.add_cars(@car1, 5)
+      @train1.add_cars(@car2, 2)
+      @train2.add_cars(@car1, 3)
+      @train2.add_cars(@car4, 4)
+      @train3.add_cars(@car1, 1)
+      @train4.add_cars(@car4, 5)
+      @train4.add_cars(@car3, 10)
       @train_yard.add_train(@train1)
       @train_yard.add_train(@train2)
       @train_yard.add_train(@train3)
@@ -61,6 +75,13 @@ RSpec.describe TrainYard do
     end
 
     it 'can return an array of a Train object that have the kind of car' do
+      @train1.add_cars(@car1, 5)
+      @train1.add_cars(@car2, 2)
+      @train2.add_cars(@car1, 3)
+      @train2.add_cars(@car4, 4)
+      @train3.add_cars(@car1, 1)
+      @train4.add_cars(@car4, 5)
+      @train4.add_cars(@car3, 10)
       @train_yard.add_train(@train1)
       @train_yard.add_train(@train2)
       @train_yard.add_train(@train3)
@@ -68,5 +89,40 @@ RSpec.describe TrainYard do
 
       expect(@train_yard.trains_containing(@car1)).to eq([@train1, @train2, @train3])
     end
+
+    it 'can return returns a list of all the types of cargo at the TrainYard in alphabetical order (unique)' do
+      @train1.add_cars(@car1, 5)
+      @train2.add_cars(@car1, 3)
+      @train2.add_cars(@car4, 4)
+      @train3.add_cars(@car1, 4)
+      @train4.add_cars(@car4, 5)
+      @train4.add_cars(@car3, 10)
+      @train_yard.add_train(@train1)
+      @train_yard.add_train(@train2)
+      @train_yard.add_train(@train3)
+      @train_yard.add_train(@train4)
+
+      expect(@train_yard.sorted_cargo_list).to eq(['Cattle', 'Dining', 'Mail'])
+    end
+
+    it 'can reports the quantities of all cars' do
+      @train1.add_cars(@car1, 5)
+      @train2.add_cars(@car1, 3)
+      @train2.add_cars(@car4, 4)
+      @train3.add_cars(@car1, 4)
+      @train4.add_cars(@car4, 5)
+      @train4.add_cars(@car3, 10)
+      @train_yard.add_train(@train1)
+      @train_yard.add_train(@train2)
+      @train_yard.add_train(@train3)
+      @train_yard.add_train(@train4)
+
+      expect(@train_yard.total_inventory).to eq({
+        @car1 => 12,
+        @car3 => 10,
+        @car4 => 9
+        })
+    end
+
   end
 end
